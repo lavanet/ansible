@@ -1,0 +1,55 @@
+---
+- name: Install lavap
+  when: lavap.enabled | default(false)
+  block:
+    - name: Check for lavap lock file
+      ansible.builtin.stat:
+        path: /home/{{ user.name }}/.lavap-{{ lavap.version }}.lock
+      register: lavap_lock
+
+    - name: Starting the binary installation part
+      become: true
+      when: not lavap_lock.stat.exists
+      block:
+        - name: Create Download directory
+          ansible.builtin.file:
+            state: directory
+            path: /home/{{ user.name }}/.lavavisor/upgrades/{{ lavap.version }}
+            recurse: true
+            owner: "{{ user.name }}"
+            group: "{{ user.name }}"
+            mode: "0775"
+
+        - name: Download lavap binary
+          ansible.builtin.get_url:
+            url: https://github.com/lavanet/lava/releases/download/{{ lavap.version }}/lavap-{{ lavap.version }}-linux-amd64
+            dest: /home/{{ user.name }}/.lavavisor/upgrades/{{ lavap.version }}/lavap
+            owner: "{{ user.name }}"
+            group: "{{ user.name }}"
+            mode: u+x
+          register: lavap_binary_download
+
+        - name: Create Go bin directory
+          ansible.builtin.file:
+            state: directory
+            path: /home/{{ user.name }}/go/bin/
+            recurse: true
+            owner: "{{ user.name }}"
+            group: "{{ user.name }}"
+            mode: "0775"
+
+        - name: Create lavap lock file when this role is executed
+          ansible.builtin.file:
+            path: /home/{{ user.name }}/.lavap-{{ lavap.version }}.lock
+            state: touch
+            mode: "0644"
+
+    - name: Make symlinks for the new binary
+      become: true
+      ansible.builtin.file:
+        src: /home/{{ user.name }}/.lavavisor/upgrades/{{ lavap.version }}/lavap
+        dest: /home/{{ user.name }}/go/bin/lavap
+        owner: "{{ user.name }}"
+        group: "{{ user.name }}"
+        state: link
+        force: true

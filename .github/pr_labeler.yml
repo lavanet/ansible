@@ -1,0 +1,25 @@
+---
+ci:
+  - changed-files:
+      - any-glob-to-any-file: .github/workflows/**/*
+roles/provider:
+  - changed-files:
+      - any-glob-to-any-file: roles/provider/**/*
+roles/bootstrap:
+  - changed-files:
+      - any-glob-to-any-file: roles/bootstrap/**/*
+roles/sshd:
+  - changed-files:
+      - any-glob-to-any-file: roles/sshd/**/*
+roles/monitoring:
+  - changed-files:
+      - any-glob-to-any-file: roles/monitoring/**/*
+roles/wallet:
+  - changed-files:
+      - any-glob-to-any-file: roles/wallet/**/*
+roles/nginx:
+  - changed-files:
+      - any-glob-to-any-file: roles/nginx/**/*
+roles/lavap:
+  - changed-files:
+      - any-glob-to-any-file: roles/lavap/**/*
