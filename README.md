@@ -1,3 +1,5 @@
+![image](https://github.com/lavanet/ansible/assets/9674751/590e7464-6fdc-4a0f-8472-58d787069f65)
+
 # Ansible for Lavanet Services
 
 This repository contains Ansible playbooks and roles dedicated to managing and automating the deployment and configuration of Lavanet services. By leveraging Ansible, an open-source automation tool, we aim to simplify the provisioning, configuration management, application deployment, and orchestration of Lavanet's services across different environments.
