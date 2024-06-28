@@ -1,0 +1,43 @@
+---
+- name: Check for lock file
+  stat:
+    path: "/home/{{ user_name }}/.go_{{ go_version }}.lock"
+  register: go_lock
+
+- name: Install go
+  become: true
+  block:
+    - name: Remove any existing Go installation
+      file:
+        path: "{{ go_install_dir }}"
+        state: absent
+
+    - name: Download Go package
+      get_url:
+        url: "{{ go_package_url }}"
+        dest: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+
+    - name: Extract Go package
+      unarchive:
+        src: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+        dest: "/usr/local"
+        remote_src: true
+        extra_opts: [--strip-components=1]
+
+    - name: Add Go to the system path
+      lineinfile:
+        path: /home/{{ user_name }}/.profile
+        line: 'export PATH=$PATH:/usr/local/go/bin'
+        create: true
+
+    - name: Add Go-lava to the system path
+      lineinfile:
+        path: /home/{{ user_name }}/.profile
+        line: 'export PATH=$PATH:/home/{{ user_name }}/go/bin'
+        create: true
+
+    - name: Create lock file when this role is executed
+      file:
+        path: "/home/{{ user_name }}/.go_{{ go_version }}.lock"
+        state: touch
+  when: go_install and not go_lock.stat.exists
