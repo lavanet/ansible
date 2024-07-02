@@ -1,11 +1,11 @@
 my-provider-lava-eu:
   hosts:
-    65.21.126.121:
-      hostname: "65.108.213.84"
+   65.108.213.555:
+      hostname: "my-provider-hostname" 
   vars:
-    hosting: hosting # your provider, for easy debugging in caese of issues
+    hosting: hosting # your provider, for easy debugging in case of issues
     geo_location: "2" # geo location of the server
     wallet_name: my-walle-name # this is the name of the wallet that will be imported for serving your requests
     user_name: ubuntu #your operating system username
     subdomain: "your_subdomain_here" #subdomain is mandatory as the provider is serving on GRPC and it can only work with a subdomain
-    moniker: testnet-lava-eu-provider1
+    moniker: moniker_name #moniker name is the name of your provider that will be used to identify the node in the network
