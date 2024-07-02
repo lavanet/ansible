@@ -1,0 +1,18 @@
+[Unit]
+  Description=Lavavisor daemon
+  After=network-online.target
+[Service]
+  WorkingDirectory=/home/{{ user_name }}/go/bin/
+  ExecStart=/home/{{ user_name }}/go/bin/lavavisor start --auto-download \
+  --log_format {{ log_format }} \
+  --log_level {{ log_level }} \
+  --chain-id {% if chain_id == 'testnet' %} {{ chain_id_testnet }} {% elif chain_id == 'mainnet' %} {{ chain_id_mainnet }} {% else %} wrong_chain_name {% endif %} \
+  --node {% if chain_id == 'testnet' %} {{ node_testnet }} {% elif chain_id == 'mainnet' %} {{ node_mainnet }} {% else %} wrong_chain_name {% endif %}
+  
+  User={{ user_name }}
+  Restart=always
+  RestartSec=180
+  LimitNOFILE=infinity
+  LimitNPROC=infinity
+[Install]
+  WantedBy=multi-user.target
