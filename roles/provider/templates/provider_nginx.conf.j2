@@ -1,6 +1,6 @@
 #jinja2: trim_blocks:False
 server {
-		listen 443 ssl http2; 
+		listen 443 ssl http2;
     server_name {{ item.0.key }}-{{ subdomain }}-{{ geo_location }}.{{ domain }};
     ssl_certificate /etc/nginx/certs/origin_{{ domain }}.pem;
     ssl_certificate_key /etc/nginx/certs/private_{{ domain }}.key;

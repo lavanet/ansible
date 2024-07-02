@@ -1,5 +1,5 @@
-# There will be multiple installation of the providers. We will need to make a logic to cover all of them. 
-# So division by region, by server, by chains. by domain. All of that MUST be selectable. 
+# There will be multiple installation of the providers. We will need to make a logic to cover all of them.
+# So division by region, by server, by chains. by domain. All of that MUST be selectable.
 # We will need to make a logic to cover all of them.
 ---
 - name: Configuration making and editing

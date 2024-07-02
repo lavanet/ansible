@@ -31,13 +31,13 @@ Deploy or update Lavanet services with the following command:
 
 ```bash
 ansible-playbook -i inventory playbooks/<playbook_name>.yml
-``` 
+```
 
 Examples with additional switches:
 
 ```bash
  ansible-playbook  -i inventory/my_servers.ini pre-run.yml  --private-key=~/.ssh/my_key --diff --ask-vault-pass
-``` 
+```
 **-i inventory/nodes**  -select the inventory file you want playbook to be run on
 **pre-run.yml** - select the playbook you want to run
 **--private-key=~/.ssh/lava** - use this ssh key to authorise to the machine(you can use yours)

@@ -14,7 +14,7 @@ ExecStart=/home/{{ user_name }}/go/bin/lavap rpcprovider .lavavisor/services/ser
     --cache-be {{ cache.address }} \
     {% endif %}
     --log_level {{ log_level }} \
-    --log_format {{ log_format }}     
+    --log_format {{ log_format }}
 User={{ user_name }}
 Restart=always
 RestartSec=180

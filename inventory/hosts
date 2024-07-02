@@ -1,7 +1,7 @@
 my-provider-lava-eu:
   hosts:
    65.108.213.555:
-      hostname: "my-provider-hostname" 
+      hostname: "my-provider-hostname"
   vars:
     hosting: hosting # your provider, for easy debugging in case of issues
     geo_location: "2" # geo location of the server
