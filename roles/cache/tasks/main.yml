@@ -16,8 +16,7 @@
         state: link
 
     - name: Include lavavisor config tasks
-      include_tasks: lavavisor.yml
-
+      ansible.builtin.include_tasks: lavavisor.yml
     - name: Restarting cache
       ansible.builtin.systemd:
         name: cache.service
@@ -31,4 +30,3 @@
       when: ansible_facts['services']['cache.service']['state'] != 'running'
       ansible.builtin.fail:
         msg: Cache service is not running properly!
-

@@ -1,7 +1,7 @@
 ---
 - name: Check for lock file
-  stat:
-    path: "/home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock"
+  ansible.builtin.stat:
+    path: /home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock
   register: lavavisor_lock
 
 - name: Install Lavavisor
@@ -9,64 +9,64 @@
   when: not lavavisor_lock.stat.exists
   block:
     - name: Create directory structure for lavavisor executable
-      file:
-        path: "/home/{{ user_name }}/go/bin"
+      ansible.builtin.file:
+        path: /home/{{ user_name }}/go/bin
         state: directory
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: "0750"
 
     - name: Download lavavisor binary
-      get_url:
-        url: "https://github.com/lavanet/lava/releases/download/{{ lavavisor_version }}/lavavisor-{{ lavavisor_version }}-linux-amd64"
-        dest: "/home/{{ user_name }}/go/bin/lavavisor"
+      ansible.builtin.get_url:
+        url: https://github.com/lavanet/lava/releases/download/{{ lavavisor_version }}/lavavisor-{{ lavavisor_version }}-linux-amd64
+        dest: /home/{{ user_name }}/go/bin/lavavisor
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
-        mode: "u+x"
+        mode: u+x
 
     - name: Create directory structure for lavavisor
-      file:
-        path: "/home/{{ user_name }}/.lavavisor/services/service_configs"
+      ansible.builtin.file:
+        path: /home/{{ user_name }}/.lavavisor/services/service_configs
         state: directory
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: "0750"
 
     - name: Create lock file when this role is executed
-      file:
-        path: "/home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock"
+      ansible.builtin.file:
+        path: /home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock
         state: touch
 
 - name: Configure and start Lavavisor
   become: true
   block:
     - name: Generate config.yml
-      template:
-        src: "config.yml.j2"
-        dest: "/home/{{ user_name }}/.lavavisor/config.yml"
+      ansible.builtin.template:
+        src: config.yml.j2
+        dest: /home/{{ user_name }}/.lavavisor/config.yml
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
         mode: "0644"
         backup: true
-        force: no
+        force: false
 
     - name: Deploy systemd service file from template
-      template:
-        src: "lavavisor.service.j2"
-        dest: "/etc/systemd/system/lavavisor.service"
-    
+      ansible.builtin.template:
+        src: lavavisor.service.j2
+        dest: /etc/systemd/system/lavavisor.service
+
     - name: Stop lavavisor
       when: force_selected_lavap | default(false)
-      systemd:
-        name: "lavavisor"
-        state: "stopped"
+      ansible.builtin.systemd:
+        name: lavavisor
+        state: stopped
         enabled: false
         daemon_reload: true
 
     - name: Start lavavisor
       when: not force_selected_lavap | default(true)
-      systemd:
-        name: "lavavisor"
-        state: "started"
+      ansible.builtin.systemd:
+        name: lavavisor
+        state: started
         enabled: true
         daemon_reload: true

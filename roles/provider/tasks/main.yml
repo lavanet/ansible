@@ -27,4 +27,3 @@
         state: restarted
         enabled: true
         daemon_reload: true
-

@@ -5,6 +5,6 @@
     - name: Insert/Update lavavisor cache configuration
       ansible.builtin.blockinfile:
         block: "{{ lookup('template', 'lavavisor_config.yml.j2') }}"
-        path: "/home/{{ user_name }}/.lavavisor/config.yml"
-        backup: yes
+        path: /home/{{ user_name }}/.lavavisor/config.yml
+        backup: true
         marker: "## {mark} LAVA CACHE ANSIBLE MANAGED BLOCK ##"

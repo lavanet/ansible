@@ -1,7 +1,7 @@
 ---
 - name: Check for wallet lock file
-  stat:
-    path: "/home/{{ user_name }}/.wallet-{{ wallet_name }}.lock"
+  ansible.builtin.stat:
+    path: /home/{{ user_name }}/.wallet-{{ wallet_name }}.lock
   register: wallet_lock
 
 - name: Setting up wallet
@@ -9,46 +9,46 @@
   become_user: "{{ user_name }}"
   when: wallet.enabled | default(false) and not wallet_lock.stat.exists
   block:
-  - name: Copy wallet file to /tmp
-    diff: false
-    when: subdomain is defined
-    copy:
-      src: "{{ wallet_prefix }}.{{ subdomain }}.{{ geo_location }}.wallet"
-      dest: /tmp/wallet_{{ geo_location }}
-      mode: "0644"
+    - name: Copy wallet file to /tmp
+      diff: false
+      when: subdomain is defined
+      ansible.builtin.copy:
+        src: "{{ wallet_prefix }}.{{ subdomain }}.{{ geo_location }}.wallet"
+        dest: /tmp/wallet_{{ geo_location }}
+        mode: "0644"
 
-  - name: Copy wallet file to /tmp
-    diff: false
-    when: subdomain is not defined
-    copy:
-      src: "{{ wallet_prefix }}.{{ geo_location }}.wallet"
-      dest: /tmp/wallet_{{ geo_location }}
-      mode: "0644"
+    - name: Copy wallet file to /tmp
+      diff: false
+      when: subdomain is not defined
+      ansible.builtin.copy:
+        src: "{{ wallet_prefix }}.{{ geo_location }}.wallet"
+        dest: /tmp/wallet_{{ geo_location }}
+        mode: "0644"
 
-  - name: Import wallet
-    when: subdomain is defined
-    shell: "echo {{ lookup('ansible.builtin.vars', wallet_prefix + '_' + subdomain + '_' + geo_location | string  + '_wallet_password' ) }} | /home/{{ user_name }}/go/bin/lavap keys import {{ wallet_name }} /tmp/wallet_{{ geo_location }} --keyring-backend {{ keyring_backend }}"
+    - name: Import wallet
+      when: subdomain is defined
+      ansible.builtin.shell: echo {{ lookup('ansible.builtin.vars', wallet_prefix + '_' + subdomain + '_' + geo_location | string  + '_wallet_password' ) }} | /home/{{ user_name }}/go/bin/lavap keys import
+        {{ wallet_name }} /tmp/wallet_{{ geo_location }} --keyring-backend {{ keyring_backend }}
+    - name: Import wallet
+      when: subdomain is not defined
+      ansible.builtin.shell: echo {{ lookup('ansible.builtin.vars', wallet_prefix + '_' + geo_location | string  + '_wallet_password' ) }} | /home/{{ user_name }}/go/bin/lavap keys import {{ wallet_name
+        }} /tmp/wallet_{{ geo_location }} --keyring-backend {{ keyring_backend }}
+    - name: List wallet keys and filter by name
+      ansible.builtin.command: |
+        /home/{{ user_name }}/go/bin/lavap keys list --keyring-backend test --output json | jq '.[] | select( .name == "{{ wallet_name }}") | .name'
+      register: keys_list
+      ignore_errors: true
 
-  - name: Import wallet
-    when: subdomain is not defined
-    shell: "echo {{ lookup('ansible.builtin.vars', wallet_prefix + '_' + geo_location | string  + '_wallet_password' ) }} | /home/{{ user_name }}/go/bin/lavap keys import {{ wallet_name }} /tmp/wallet_{{ geo_location }} --keyring-backend {{ keyring_backend }}"
-  
-  - name: List wallet keys and filter by name
-    command: |
-      /home/{{ user_name }}/go/bin/lavap keys list --keyring-backend test --output json | jq '.[] | select( .name == "{{ wallet_name }}") | .name'
-    register: keys_list
-    ignore_errors: true
+    - name: Display importerd wallet name
+      ansible.builtin.debug:
+        msg: "{{ keys_list.stdout }}"
 
-  - name: Display importerd wallet name
-    debug:
-      msg: "{{ keys_list.stdout }}"
+    - name: Cleanup
+      ansible.builtin.file:
+        path: /tmp/wallet_{{ geo_location }}
+        state: absent
 
-  - name: Cleanup 
-    file:
-      path: /tmp/wallet_{{ geo_location }}
-      state: absent
-  
-  - name: Create wallet lock file
-    file:
-      path: "/home/{{ user_name }}/.wallet-{{ wallet_name }}.lock"
-      state: touch
+    - name: Create wallet lock file
+      ansible.builtin.file:
+        path: /home/{{ user_name }}/.wallet-{{ wallet_name }}.lock
+        state: touch
