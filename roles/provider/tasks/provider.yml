@@ -1,0 +1,51 @@
+# There will be multiple installation of the providers. We will need to make a logic to cover all of them. 
+# So division by region, by server, by chains. by domain. All of that MUST be selectable. 
+# We will need to make a logic to cover all of them.
+---
+- name: Configuration making and editing
+  become: true
+  block:
+    - name: Process each service config
+      diff: false
+      no_log: true
+      ansible.builtin.template:
+        src: provider_configs.yml.j2
+        dest: /home/{{ user_name }}/.lavavisor/services/service_configs/provider-{{ item.key }}.yml
+      loop: "{{ provider.chains | dict2items }}"
+      loop_control:
+        loop_var: item
+
+    - name: Process each service and its interfaces
+      diff: false
+      no_log: true
+      ansible.builtin.template:
+        src: provider.service.j2
+        dest: /home/{{ user_name }}/.lavavisor/services/provider-{{ item.key }}.service
+      loop: "{{ provider.chains | dict2items }}"
+      vars:
+        interfaces_list: "{{ item.value }}"
+      loop_control:
+        loop_var: item
+
+    - name: Create symlinks for service configs to systemd
+      diff: false
+      no_log: true
+      ansible.builtin.file:
+        src: /home/{{ user_name }}/.lavavisor/services/provider-{{ item.key }}.service
+        dest: /etc/systemd/system/provider-{{ item.key }}.service
+        state: link
+      loop: "{{ provider.chains | dict2items }}"
+      loop_control:
+        loop_var: item
+
+    - name: Start provider service
+      diff: false
+      no_log: true
+      ansible.builtin.systemd:
+        name: provider-{{ item.key }}.service
+        state: restarted
+        enabled: true
+        daemon_reload: true
+      loop: "{{ provider.chains | dict2items }}"
+      loop_control:
+        loop_var: item

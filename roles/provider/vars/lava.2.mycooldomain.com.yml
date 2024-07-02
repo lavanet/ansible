@@ -1,0 +1,31 @@
+---
+provider:
+  chains:
+    lav1:
+      metrics_port: 3300
+      interfaces:
+        - interface: rest
+          port: 1500
+          nodes:
+            - endpoint: ##ansible vault endpoint
+              type: full
+
+            - endpoint: ##ansible vault endpoint
+              type: archive
+
+        - interface: tendermintrpc
+          port: 1500
+          nodes:
+            - endpoint: ##ansible vault endpoint
+              type: full
+
+            - endpoint: ##ansible vault endpoint
+              type: archive
+
+        - interface: grpc
+          port: 1500
+          nodes:
+            - endpoint: ##ansible vault endpoint
+              type: full
+            - endpoint: ##ansible vault endpoint
+              type: archive
