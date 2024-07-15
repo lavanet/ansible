@@ -14,7 +14,7 @@
     log_level: warn # log level for lavap
     lavap:
       version: v2.0.3 # lavap version(check the most recent release)
-    force_selected_lavap: false #for testing purpose you can force selected lavap, and turn off lavavisor control of it
+    force_selected_lavap: false # for testing purpose you can force selected lavap, and turn off lavavisor control of it
     go_install: "yes"
     go_version: 1.20.5
     lavavisor: "yes"

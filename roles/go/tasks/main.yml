@@ -17,11 +17,13 @@
       ansible.builtin.get_url:
         url: "{{ go_package_url }}"
         dest: /tmp/go{{ go_version }}.linux-amd64.tar.gz
+        mode: '0644'
 
     - name: Extract Go package
       ansible.builtin.unarchive:
         src: /tmp/go{{ go_version }}.linux-amd64.tar.gz
         dest: /usr/local
+        mode: '0644'
         remote_src: true
         extra_opts: [--strip-components=1]
 
@@ -30,14 +32,17 @@
         path: /home/{{ user_name }}/.profile
         line: export PATH=$PATH:/usr/local/go/bin
         create: true
+        mode: '0644'
 
     - name: Add Go-lava to the system path
       ansible.builtin.lineinfile:
         path: /home/{{ user_name }}/.profile
         line: export PATH=$PATH:/home/{{ user_name }}/go/bin
         create: true
+        mode: '0644'
 
     - name: Create lock file when this role is executed
       ansible.builtin.file:
         path: /home/{{ user_name }}/.go_{{ go_version }}.lock
         state: touch
+        mode: '0644'

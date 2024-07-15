@@ -2,6 +2,7 @@
 - name: Check for lock file
   ansible.builtin.stat:
     path: /home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock
+    mode: '0644'
   register: lavavisor_lock
 
 - name: Install Lavavisor
@@ -54,6 +55,8 @@
       ansible.builtin.template:
         src: lavavisor.service.j2
         dest: /etc/systemd/system/lavavisor.service
+        mode: "0644"
+        
 
     - name: Stop lavavisor
       when: force_selected_lavap | default(false)
