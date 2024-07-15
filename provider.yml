@@ -8,22 +8,22 @@
     wallet:
       enabled: true
     chain_id: testnet
-    user_name: ubuntu #os username
-    domain: your_domain_here.com #your primary domain
-    wallet_prefix: provider #wallet prefix(kept in files in wallet role)
-    log_level: warn #log level for lavap
+    user_name: ubuntu # os username
+    domain: your_domain_here.com # your primary domain
+    wallet_prefix: provider # wallet prefix(kept in files in wallet role)
+    log_level: warn # log level for lavap
     lavap:
-      version: v2.0.3 #lavap version(check the most recent release)
+      version: v2.0.3 # lavap version(check the most recent release)
     force_selected_lavap: false #for testing purpose you can force selected lavap, and turn off lavavisor control of it
     go_install: "yes"
     go_version: 1.20.5
     lavavisor: "yes"
-    lavavisor_version: v2.0.3 #lavavisor version(check the most recent release)
+    lavavisor_version: v2.0.3 # lavavisor version(check the most recent release)
     cache:
       enabled: true
       address: 127.0.0.1:20100
       metrics_port: 20200
-      logs: #this is cache related logs
+      logs: # this is cache related logs
         level: warn
         format: json
   roles:
