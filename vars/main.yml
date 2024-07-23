@@ -2,3 +2,10 @@
 lavap:
   enabled: false
   version: v2.0.3
+
+log_level: warn
+log_format: json
+
+chain_id_testnet: "lava-testnet-2"
+chain_id_mainnet: "lava-mainnet-1"
+node_testnet: "https://public-rpc-testnet2.lavanet.xyz:443"

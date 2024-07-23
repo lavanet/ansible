@@ -2,7 +2,6 @@
 - name: Check for lock file
   ansible.builtin.stat:
     path: /home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock
-    mode: '0644'
   register: lavavisor_lock
 
 - name: Install Lavavisor
@@ -73,3 +72,10 @@
         state: started
         enabled: true
         daemon_reload: true
+
+    - name: Ensure go directory is in bashrc
+      lineinfile:
+        path: /home/ubuntu/.bashrc
+        regexp: '^export PATH=.*:/home/ubuntu/go/bin$'
+        line: 'export PATH=$PATH:/home/ubuntu/go/bin'
+        state: present
