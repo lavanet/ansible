@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 WorkingDirectory=/home/{{ user_name }}/go/bin/
-ExecStart=/home/{{ user_name }}/go/bin/lavap cache {{ cache.address }}  %} --metrics_address 0.0.0.0:{{ cache.metrics_port }} --log_level {{ cache.logs.level }} --log_format {{ cache.logs.format }}
+ExecStart=/home/{{ user_name }}/go/bin/lavap cache {{ cache.address }} --metrics_address {{ cache.address }}:{{ cache.metrics_port }} --log_level {{ cache.logs.level }} --log_format {{ cache.logs.format }}
 User={{ user_name }}
 Restart=always
 RestartSec=180

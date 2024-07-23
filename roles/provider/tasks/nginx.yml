@@ -4,7 +4,6 @@
   block:
     - name: Generate Nginx configuration files for each provider chain
       diff: false
-      no_log: true
       ansible.builtin.template:
         src: provider_nginx.conf.j2
         dest: /etc/nginx/sites-enabled/{{ item.0.key }}.{{ subdomain }}.{{ geo_location }}.{{ domain }}.conf

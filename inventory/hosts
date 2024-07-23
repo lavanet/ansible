@@ -5,7 +5,6 @@ my-provider-lava-eu:
   vars:
     hosting: hosting # your provider, for easy debugging in case of issues
     geo_location: "2" # geo location of the server
-    wallet_name: my-walle-name # this is the name of the wallet that will be imported for serving your requests
+    wallet_name: wallet # this is the name of the wallet that will be imported for serving your requests
     user_name: ubuntu # your operating system username
-    subdomain: "your_subdomain_here" # subdomain is mandatory as the provider is serving on GRPC and it can only work with a subdomain
-    moniker: moniker_name # moniker name is the name of your provider that will be used to identify the node in the network
+    subdomain: "lava" # subdomain is mandatory as the provider is serving on GRPC and it can only work with a subdomain

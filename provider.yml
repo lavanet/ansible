@@ -7,7 +7,7 @@
   vars:
     chain_id: testnet
     user_name: ubuntu # os username
-    domain: your_domain_here.com # your primary domain
+    domain: "mycooldomain.com" # your primary domain
     log_level: warn # log level for lavap
     lavap:
       version: v2.0.3 # lavap version(check the most recent release)
@@ -24,7 +24,7 @@
         level: warn
         format: json
   roles:
-    - role: cache
-      tags: cache
+    # - role: cache
+    #   tags: cache
     - role: provider
       tags: provider

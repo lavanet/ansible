@@ -7,25 +7,25 @@ provider:
         - interface: rest
           port: 1500
           nodes:
-            - endpoint: ##ansible vault endpoint
+            - endpoint: https://endpoint.com:443/rest/
               type: full
 
-            - endpoint: ##ansible vault endpoint
+            - endpoint: https://endpoint_with_archive.com:443/rest/
               type: archive
 
         - interface: tendermintrpc
           port: 1500
           nodes:
-            - endpoint: ##ansible vault endpoint
+            - endpoint: https://endpoint.com:443/rpc
               type: full
 
-            - endpoint: ##ansible vault endpoint
+            - endpoint: https://endpoint_with_archive.com:443/rpc
               type: archive
 
         - interface: grpc
           port: 1500
           nodes:
-            - endpoint: ##ansible vault endpoint
+            - endpoint: https://endpoint.com:443/grpc
               type: full
-            - endpoint: ##ansible vault endpoint
+            - endpoint:  https://endpoint_with_archive.com:443/grpc
               type: archive
