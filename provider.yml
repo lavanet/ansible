@@ -24,7 +24,7 @@
         level: warn
         format: json
   roles:
-    # - role: cache
-    #   tags: cache
+    - role: cache
+      tags: cache
     - role: provider
       tags: provider

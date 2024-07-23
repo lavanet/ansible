@@ -21,3 +21,5 @@
       tags: go
     - role: lavavisor
       tags: lavavisor
+    - role: nginx
+      tags: nginx
