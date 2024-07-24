@@ -9,7 +9,7 @@
         path: /etc/nginx/sites-enabled
         state: directory
         mode: '0755'
-    
+
     - name: Display certificate reminder message
       debug:
         msg: |

@@ -1,5 +1,5 @@
 ---
-- name: Include relevant vars 1 
+- name: Include relevant vars 1
   ansible.builtin.include_vars:
     file: "{{ item }}"
   loop: "{{ lookup('fileglob', 'vars/{{ subdomain }}.{{ geo_location }}.{{ domain }}*.yml', wantlist=True) }}"
