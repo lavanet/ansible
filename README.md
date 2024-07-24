@@ -1,6 +1,6 @@
-![image](https://github.com/lavanet/ansible/assets/9674751/590e7464-6fdc-4a0f-8472-58d787069f65)
-
 # Ansible for Lavanet Services
+
+![image](https://github.com/lavanet/ansible/assets/9674751/590e7464-6fdc-4a0f-8472-58d787069f65)
 
 This repository contains Ansible playbooks and roles dedicated to managing and automating the deployment and configuration of Lavanet services. By leveraging Ansible, an open-source automation tool, we aim to simplify the provisioning, configuration management, application deployment, and orchestration of Lavanet's services across different environments.
 
@@ -19,9 +19,11 @@ Before proceeding, ensure you have:
 ## Getting Started
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/lavanet/ansible.git
    ```
+
 2. Update the `inventory` file with your servers' IP addresses or hostnames.
 3. Customize the playbooks and roles within the `playbooks` and `roles` directories as needed.
 
@@ -38,6 +40,7 @@ Examples with additional switches:
 ```bash
  ansible-playbook  -i inventory/my_servers.ini pre-run.yml  --private-key=~/.ssh/my_key --diff --ask-vault-pass
 ```
+
 **-i inventory/nodes**  -select the inventory file you want playbook to be run on
 **pre-run.yml** - select the playbook you want to run
 **--private-key=~/.ssh/lava** - use this ssh key to authorise to the machine(you can use yours)
