@@ -1,0 +1,8 @@
+#jinja2: trim_blocks: "true", lstrip_blocks: "false"
+{% if provider | default(false) %}
+  {% for chain in provider.chains | dict2items %}
+    {% if chain.value.lavavisor.enabeld | default(lavavisor.enabeld) | default(true) %}
+    - provider-{{ chain.key }}.service
+    {% endif %}
+  {% endfor %}
+{% endif %}

@@ -1,0 +1,32 @@
+---
+- name: Starting the cache installation part
+  become: true
+  when: cache.enabled | default(false)
+  block:
+    - name: Create cache service file
+      ansible.builtin.template:
+        src: cache.service.j2
+        dest: /home/{{ user_name }}/.lavavisor/services/cache.service
+        mode: "0755"
+
+    - name: Create symlinks for cahce
+      ansible.builtin.file:
+        src: /home/{{ user_name }}/.lavavisor/services/cache.service
+        dest: /etc/systemd/system/cache.service
+        state: link
+
+    - name: Include lavavisor config tasks
+      ansible.builtin.include_tasks: lavavisor.yml
+    - name: Restarting cache
+      ansible.builtin.systemd:
+        name: cache.service
+        state: restarted
+        daemon_reload: true
+
+    - name: Get service facts
+      ansible.builtin.service_facts:
+
+    - name: Fail if cache service is not running
+      when: ansible_facts['services']['cache.service']['state'] != 'running'
+      ansible.builtin.fail:
+        msg: Cache service is not running properly!

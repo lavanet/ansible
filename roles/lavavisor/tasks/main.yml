@@ -1,0 +1,81 @@
+---
+- name: Check for lock file
+  ansible.builtin.stat:
+    path: /home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock
+  register: lavavisor_lock
+
+- name: Install Lavavisor
+  become: true
+  when: not lavavisor_lock.stat.exists
+  block:
+    - name: Create directory structure for lavavisor executable
+      ansible.builtin.file:
+        path: /home/{{ user_name }}/go/bin
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0750"
+
+    - name: Download lavavisor binary
+      ansible.builtin.get_url:
+        url: https://github.com/lavanet/lava/releases/download/{{ lavavisor_version }}/lavavisor-{{ lavavisor_version }}-linux-amd64
+        dest: /home/{{ user_name }}/go/bin/lavavisor
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: u+x
+
+    - name: Create directory structure for lavavisor
+      ansible.builtin.file:
+        path: /home/{{ user_name }}/.lavavisor/services/service_configs
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0750"
+
+    - name: Create lock file when this role is executed
+      ansible.builtin.file:
+        path: /home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock
+        mode: "0644"
+        state: touch
+
+- name: Configure and start Lavavisor
+  become: true
+  block:
+    - name: Generate config.yml
+      ansible.builtin.template:
+        src: config.yml.j2
+        dest: /home/{{ user_name }}/.lavavisor/config.yml
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: "0644"
+        backup: true
+        force: false
+
+    - name: Deploy systemd service file from template
+      ansible.builtin.template:
+        src: lavavisor.service.j2
+        dest: /etc/systemd/system/lavavisor.service
+        mode: "0644"
+
+    - name: Stop lavavisor
+      when: force_selected_lavap | default(false)
+      ansible.builtin.systemd:
+        name: lavavisor
+        state: stopped
+        enabled: false
+        daemon_reload: true
+
+    - name: Start lavavisor
+      when: not force_selected_lavap | default(true)
+      ansible.builtin.systemd:
+        name: lavavisor
+        state: started
+        enabled: true
+        daemon_reload: true
+
+    - name: Ensure go directory is in bashrc
+      ansible.builtin.lineinfile:
+        path: /home/ubuntu/.bashrc
+        regexp: ^export PATH=.*:/home/ubuntu/go/bin$
+        line: export PATH=$PATH:/home/ubuntu/go/bin
+        state: present

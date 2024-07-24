@@ -1,0 +1,29 @@
+---
+- name: Include relevant vars 1
+  ansible.builtin.include_vars:
+    file: "{{ item }}"
+  loop: "{{ lookup('fileglob', 'vars/{{ subdomain }}.{{ geo_location }}.{{ domain }}*.yml', wantlist=True) }}"
+
+- name: Install Provider
+  become: true
+  block:
+    - name: Include relevant vars 2
+      ansible.builtin.include_vars:
+        file: "{{ item }}"
+      loop: "{{ lookup('fileglob', 'vars/{{ subdomain }}.{{ geo_location }}.{{ domain }}*.yml', wantlist=True) }}"
+
+    - name: Include nginx setup tasks
+      ansible.builtin.include_tasks: nginx.yml
+    - name: Include provider setup tasks
+      ansible.builtin.include_tasks: provider.yml
+    - name: Include lavavisor config tasks
+      ansible.builtin.include_tasks: lavavisor.yml
+- name: Restart nginx service
+  become: true
+  block:
+    - name: Restart nginx service
+      ansible.builtin.systemd:
+        name: nginx.service
+        state: restarted
+        enabled: true
+        daemon_reload: true

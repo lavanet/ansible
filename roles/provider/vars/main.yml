@@ -1,0 +1,5 @@
+---
+log_level: warn
+test_provider: false
+wallet_prefix: provider
+keyring_backend: test
