@@ -50,9 +50,6 @@ Ensure you replace <playbook_name> with the appropriate playbook for your target
 
 This guide provides detailed instructions for setting up a Lava provider. Follow the steps below to ensure a successful configuration.
 
-## Quick Start Guide
-
-
 1. **Populate the Inventory File:**
    - Edit the inventory file with your server details:
      - Hosts: IP address and hostname.
