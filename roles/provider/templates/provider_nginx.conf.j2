@@ -1,4 +1,4 @@
-#jinja2: trim_blocks:False
+#jinja2: trim_blocks: "true", lstrip_blocks: "false"
 server {
 		listen 443 ssl http2;
     server_name {{ item.0.key }}-{{ subdomain }}-{{ geo_location }}.{{ domain }};

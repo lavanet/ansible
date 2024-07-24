@@ -1,4 +1,4 @@
-#jinja2: trim_blocks:True, lstrip_blocks:True
+#jinja2: trim_blocks: "true", lstrip_blocks: "false"
 metrics-listen-address: ":{{ item.value.metrics_port }}"
 endpoints:
 {% for interface_entry in item.value.interfaces %}
