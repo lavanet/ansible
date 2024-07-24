@@ -74,8 +74,8 @@
         daemon_reload: true
 
     - name: Ensure go directory is in bashrc
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /home/ubuntu/.bashrc
-        regexp: '^export PATH=.*:/home/ubuntu/go/bin$'
-        line: 'export PATH=$PATH:/home/ubuntu/go/bin'
+        regexp: ^export PATH=.*:/home/ubuntu/go/bin$
+        line: export PATH=$PATH:/home/ubuntu/go/bin
         state: present

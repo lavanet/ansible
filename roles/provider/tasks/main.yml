@@ -13,14 +13,11 @@
       loop: "{{ lookup('fileglob', 'vars/{{ subdomain }}.{{ geo_location }}.{{ domain }}*.yml', wantlist=True) }}"
 
     - name: Include nginx setup tasks
-      include_tasks: nginx.yml
-
+      ansible.builtin.include_tasks: nginx.yml
     - name: Include provider setup tasks
-      include_tasks: provider.yml
-
+      ansible.builtin.include_tasks: provider.yml
     - name: Include lavavisor config tasks
-      include_tasks: lavavisor.yml
-
+      ansible.builtin.include_tasks: lavavisor.yml
 - name: Restart nginx service
   become: true
   block:

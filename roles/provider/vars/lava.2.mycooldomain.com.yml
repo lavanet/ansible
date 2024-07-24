@@ -27,5 +27,5 @@ provider:
           nodes:
             - endpoint: https://endpoint.com:443/grpc
               type: full
-            - endpoint:  https://endpoint_with_archive.com:443/grpc
+            - endpoint: https://endpoint_with_archive.com:443/grpc
               type: archive

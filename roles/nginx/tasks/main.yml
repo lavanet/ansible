@@ -1,25 +1,25 @@
 ---
-    - name: Install NGINX
-      apt:
-        name: nginx
-        state: present
+- name: Install NGINX
+  ansible.builtin.apt:
+    name: nginx
+    state: present
 
-    - name: Create NGINX configuration directory
-      file:
-        path: /etc/nginx/sites-enabled
-        state: directory
-        mode: '0755'
+- name: Create NGINX configuration directory
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled
+    state: directory
+    mode: "0755"
 
-    - name: Display certificate reminder message
-      debug:
-        msg: |
-          NGINX has been installed and configured.
-          Please manually add your SSL certificate and key to the following paths:
-          - /etc/nginx/certs/origin_{{ domain }}.pem
-          - /etc/nginx/certs/private_{{ domain }}.key
+- name: Display certificate reminder message
+  ansible.builtin.debug:
+    msg: |
+      NGINX has been installed and configured.
+      Please manually add your SSL certificate and key to the following paths:
+      - /etc/nginx/certs/origin_{{ domain }}.pem
+      - /etc/nginx/certs/private_{{ domain }}.key
 
-    - name: Ensure NGINX is started and enabled
-      ansible.builtin.service:
-        name: nginx
-        state: started
-        enabled: yes
+- name: Ensure NGINX is started and enabled
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
