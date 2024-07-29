@@ -52,3 +52,15 @@ This guide provides detailed instructions for setting up a Lava provider. Follow
     ```
 
 For more detailed instructions , please refer to the official [Lava Provider documentation](https://docs.lavanet.xyz/provider).
+
+
+## Full Configuration
+
+|Name            |Description
+|----------------|-------------------------------
+|chain_id        | The id of the chain, can be `testnet`, `mainnet`
+|user_name       | User name to create and use
+|domain          | Primary domain, will be appended to the chain id: `mychain.mydomain.xyz`
+|log_level       | Logging level for the services, can be: `info`, `warn`, `error`, and `debug`
+|lavap.version   | Lavap binary version, latest release can be found on [github](https://github.com/lavanet/lava/releases)
+|force_selected_lavap | Set to `false` to disable lavavisor
