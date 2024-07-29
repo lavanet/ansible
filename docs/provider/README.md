@@ -22,7 +22,7 @@ This guide provides detailed instructions for setting up a Lava provider. Follow
    - Execute the playbook to set up the Lava provider.
 
     ```bash
-    ansible-playbook -i inventory/hosts lava_bootstrap.yml --diff 
+    ansible-playbook -i inventory/hosts lava_bootstrap.yml --diff
     ```
 
 4. **Configure SSL Certificate:**
@@ -48,7 +48,7 @@ This guide provides detailed instructions for setting up a Lava provider. Follow
    - Execute the playbook to complete the setup of the Lava provider.
 
     ```bash
-    ansible-playbook -i inventory/hosts provider.yml --diff 
+    ansible-playbook -i inventory/hosts provider.yml --diff
     ```
 
 For more detailed instructions , please refer to the official [Lava Provider documentation](https://docs.lavanet.xyz/provider).

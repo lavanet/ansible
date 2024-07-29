@@ -48,3 +48,7 @@ Examples with additional switches:
 **--ask-vault-pass** - if you have anything encrypted with ansible vault, this will ask to input it
 
 Ensure you replace <playbook_name> with the appropriate playbook for your target deployment.
+
+## Roles
+
+* [Provider](docs/provider/README.md) - Lava provider role
