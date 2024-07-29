@@ -1,12 +1,12 @@
 ---
 - name: Check for lock file
   ansible.builtin.stat:
-    path: /home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock
+    path: /home/{{ user_name }}/.lavavisor-{{ lavavisor.version }}.lock
   register: lavavisor_lock
 
 - name: Install Lavavisor
   become: true
-  when: not lavavisor_lock.stat.exists
+  when: lavavisor.enabled and not lavavisor_lock.stat.exists
   block:
     - name: Create directory structure for lavavisor executable
       ansible.builtin.file:
@@ -18,7 +18,7 @@
 
     - name: Download lavavisor binary
       ansible.builtin.get_url:
-        url: https://github.com/lavanet/lava/releases/download/{{ lavavisor_version }}/lavavisor-{{ lavavisor_version }}-linux-amd64
+        url: https://github.com/lavanet/lava/releases/download/{{ lavavisor.version }}/lavavisor-{{ lavavisor.version }}-linux-amd64
         dest: /home/{{ user_name }}/go/bin/lavavisor
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
@@ -34,7 +34,7 @@
 
     - name: Create lock file when this role is executed
       ansible.builtin.file:
-        path: /home/{{ user_name }}/.lavavisor-{{ lavavisor_version }}.lock
+        path: /home/{{ user_name }}/.lavavisor-{{ lavavisor.version }}.lock
         mode: "0644"
         state: touch
 
