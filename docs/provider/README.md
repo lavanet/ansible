@@ -64,3 +64,8 @@ For more detailed instructions , please refer to the official [Lava Provider doc
 |log_level       | Logging level for the services, can be: `info`, `warn`, `error`, and `debug`
 |lavap.version   | Lavap binary version, latest release can be found on [github](https://github.com/lavanet/lava/releases)
 |force_selected_lavap | Set to `false` to disable lavavisor
+|cache.enabled | Set to `false` to disable lavap cache
+|cache.address | The address of the cache
+|cache.metrics_port | The port of the prometheus metrics
+|cache.logs.level | Cache log level
+|cache.logs.format | Cache log format, can be: `json` or `text`
