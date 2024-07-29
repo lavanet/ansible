@@ -1,7 +1,7 @@
 ---
 namespace: lava
 name: lava
-version: 0.1.0
+version: 1.0.0
 readme: README.md
 authors:
   - Magma Dev Team
@@ -12,6 +12,8 @@ tags:
   - lava
   - lavanet
   - blockchain
+  - infrastructure
+  - linux
 repository: https://github.com/lavanet/ansible
 documentation: https://github.com/lavanet/ansible
 issues: https://github.com/lavanet/ansible/issues
