@@ -1,0 +1,18 @@
+#jinja2: trim_blocks: "true", lstrip_blocks: "false"
+metrics-listen-address: ":{{ item.value.metrics_port }}"
+endpoints:
+{% for interface_entry in item.value.interfaces %}
+  - api-interface: {{ interface_entry.interface }}
+    chain-id: {{ item.key | upper }}
+    network-address:
+      address: "127.0.0.1:{{ interface_entry.port }}"
+      disable-tls: true
+    node-urls:
+    {% for node in interface_entry.nodes %}
+      - url: "{{ node.endpoint }}"
+      {% if node.type != 'full' %}
+        addons:
+          - {{ node.type }}
+      {% endif %}
+    {% endfor %}
+{% endfor %}

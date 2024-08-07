@@ -59,4 +59,8 @@ Examples with additional switches:
 
 Ensure you replace `<playbook_name>` with the appropriate playbook for your target deployment.
 
+## Roles
+
+* [Provider](docs/provider/README.md) - Lava provider role
+
 ⭐️ If you find our Ansible useful, please consider giving this repository a star! ⭐️

@@ -1,0 +1,27 @@
+---
+- name: Lava Bootstrap
+  hosts: "{{ ansible_limit | default(omit) }}"
+  user: ubuntu
+  vars_files:
+    - vars/main.yml
+  vars:
+    chain_id: testnet
+    user_name: ubuntu # os username
+    domain: testing.com # your primary domain
+    log_level: warn # log level for lavap
+    lavap:
+      version: v2.0.3 # lavap version(check the most recent release)
+    force_selected_lavap: false # for testing purpose you can force selected lavap, and turn off lavavisor control of it
+    go:
+      enabled: true
+      version: 1.20.5
+    lavavisor:
+      enabled: true
+      version: v2.0.3 # lavavisor version(check the most recent release)
+  roles:
+    - role: go
+      tags: go
+    - role: lavavisor
+      tags: lavavisor
+    - role: nginx
+      tags: nginx

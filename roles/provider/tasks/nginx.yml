@@ -1,0 +1,13 @@
+---
+- name: Starting the nginx setup part for provider
+  become: true
+  block:
+    - name: Generate Nginx configuration files for each provider chain
+      diff: false
+      ansible.builtin.template:
+        src: provider_nginx.conf.j2
+        dest: /etc/nginx/sites-enabled/{{ item.0.key }}.{{ subdomain }}.{{ geo_location }}.{{ domain }}.conf
+        mode: "0644"
+      loop: "{{ provider.chains | dict2items | subelements('value.interfaces') }}"
+      loop_control:
+        loop_var: item
