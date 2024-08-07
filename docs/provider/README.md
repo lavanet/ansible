@@ -51,7 +51,7 @@ This guide provides detailed instructions for setting up a Lava provider. Follow
      ansible-playbook -i inventory/hosts provider.yml --diff
      ```
 
-For more detailed instructions , please refer to the official [Lava Provider documentation](https://docs.lavanet.xyz/provider).
+For more detailed instructions, please refer to the official [Lava Provider documentation](https://docs.lavanet.xyz/provider).
 
 ## Full Configuration
 
