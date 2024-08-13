@@ -11,7 +11,8 @@ ExecStart=/home/{{ user_name }}/go/bin/lavap rpcprovider .lavavisor/services/ser
     --chain-id {% if chain_id == 'testnet' %}{{ chain_id_testnet }}{% elif chain_id == 'mainnet' %}{{ chain_id_mainnet }}{% else %}wrong_chain_name{% endif %} --node {% if chain_id == 'testnet' %}{{ node_testnet }}{% elif chain_id == 'mainnet' %}{{ node_mainnet }}{% else %}wrong_chain_name{% endif %} \
     --geolocation {{ geo_location }} \
     {% if cache.enabled | default(false) %}
-    --cache-be {{ cache.address }} \ {% endif %}
+    --cache-be {{ cache.address }} \
+    {% endif %}
     --log_level {{ log_level }} \
     --log_format {{ log_format }}
 User={{ user_name }}

@@ -9,7 +9,6 @@ provider:
           nodes:
             - endpoint: https://endpoint.com:443/rest/
               type: full
-
             - endpoint: https://endpoint_with_archive.com:443/rest/
               type: archive
         - interface: tendermintrpc
@@ -22,7 +21,7 @@ provider:
         - interface: grpc
           port: 1500
           nodes:
-            - endpoint: https://endpoint.com:443/grpc
+            - endpoint: endpoint.com:443
               type: full
-            - endpoint: https://endpoint_with_archive.com:443/grpc
+            - endpoint: endpoint_with_archive.com:443
               type: archive
