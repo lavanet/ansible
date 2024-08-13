@@ -10,14 +10,14 @@
     domain: mycooldomain.com # your primary domain
     log_level: warn # log level for lavap
     lavap:
-      version: v2.0.3 # lavap version(check the most recent release)
+      version: v2.2.0 # lavap version(check the most recent release)
     force_selected_lavap: false # for testing purpose you can force selected lavap, and turn off lavavisor control of it
     go:
       enabled: true
       version: 1.20.5
     lavavisor:
       enabled: true
-      version: v2.0.3 # lavavisor version(check the most recent release)
+      version: v2.2.0 # lavavisor version(check the most recent release)
     cache:
       enabled: true
       address: 127.0.0.1:20100

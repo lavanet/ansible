@@ -1,4 +1,5 @@
 ---
 go:
-  package_url: https://go.dev/dl/go{{ go.version }}.linux-amd64.tar.gz
+  enabled: true
+  version: 1.20.5
   install_dir: /usr/local/go

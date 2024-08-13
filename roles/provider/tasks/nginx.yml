@@ -1,4 +1,17 @@
 ---
+- name: Check if certificate and key exists
+  stat:
+    path: "{{ item }}"
+  loop:
+    - "/etc/nginx/certs/origin_{{ domain }}.pem"
+    - "/etc/nginx/certs/private_{{ domain }}.key"
+  register: ssl_status
+
+- name: Fail if Nginx SSL is not configured
+  ansible.builtin.fail:
+    msg: "Certificate and/or key files are absent, please configure Nginx SSL!"
+  when: not (ssl_status.results | map(attribute='stat.exists')) is all
+
 - name: Starting the nginx setup part for provider
   become: true
   block:

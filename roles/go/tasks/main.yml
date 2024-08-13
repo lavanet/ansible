@@ -15,7 +15,7 @@
 
     - name: Download Go package
       ansible.builtin.get_url:
-        url: "{{ go.package_url }}"
+        url: "https://go.dev/dl/go{{ go.version }}.linux-amd64.tar.gz"
         dest: /tmp/go{{ go.version }}.linux-amd64.tar.gz
         mode: "0644"
 

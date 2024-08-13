@@ -12,16 +12,13 @@ provider:
 
             - endpoint: https://endpoint_with_archive.com:443/rest/
               type: archive
-
         - interface: tendermintrpc
           port: 1500
           nodes:
             - endpoint: https://endpoint.com:443/rpc
               type: full
-
             - endpoint: https://endpoint_with_archive.com:443/rpc
               type: archive
-
         - interface: grpc
           port: 1500
           nodes:
