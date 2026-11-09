@@ -10,7 +10,7 @@ This guide provides detailed instructions for setting up a Lava provider. Follow
 
 2. **Fill in the Details in `lava_bootstrap`:**
    - Update the `lava_bootstrap` playbook with necessary variables:
-     - `chain_id`: Specify the chain ID (e.g., testnet).
+     - `chain_id`: Specify the chain ID (`mainnet`).
      - `user_name`: Your OS username.
      - `domain`: Your primary domain.
      - `log_level`: Set the log level (e.g., warn).
@@ -57,7 +57,7 @@ For more detailed instructions, please refer to the official [Lava Provider docu
 
 |Name            |Description
 |----------------|-------------------------------
-|chain_id        | The id of the chain, can be `testnet`, `mainnet`
+|chain_id        | The id of the chain, must be `mainnet`
 |user_name       | User name to create and use
 |domain          | Primary domain, will be appended to the chain id: `mychain.mydomain.xyz`
 |log_level       | Logging level for the services, can be: `info`, `warn`, `error`, and `debug`
