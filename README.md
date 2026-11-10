@@ -12,7 +12,7 @@ Using <a href="https://github.com/ansible/ansible">Ansible</a>, we aim to simpli
 
 ## Overview
 
-Lavanet services are deployed in various environments, notably `testnet` and `staging`, requiring consistent and reproducible management methods to ensure systems are configured to our standards. This repository offers a suite of Ansible scripts designed for these purposes, alongside planned integration with GitHub Actions for automated workflows.
+Lavanet services are deployed in various environments, notably `mainnet` and `staging`, requiring consistent and reproducible management methods to ensure systems are configured to our standards. This repository offers a suite of Ansible scripts designed for these purposes, alongside planned integration with GitHub Actions for automated workflows.
 
 ## Prerequisites
 

@@ -1,7 +1,7 @@
 ---
 provider:
   chains:
-    lav1:
+    lava:
       metrics_port: 3300
       interfaces:
         - interface: rest
